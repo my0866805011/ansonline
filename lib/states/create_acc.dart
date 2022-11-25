@@ -10,6 +10,8 @@ class CreateAcc extends StatefulWidget {
 }
 
 class _CreateAccState extends State<CreateAcc> {
+  String? typeUser;
+
   Row nameMethod(double size) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -47,16 +49,79 @@ class _CreateAccState extends State<CreateAcc> {
       ),
       body: ListView(
         children: [
-         showTitle('ข้อมูลทั่วไป'),
-         nameMethod(size),
-         showTitle('เลือก ประเภท'),
+          showTitle('ข้อมูลทั่วไป'),
+          nameMethod(size),
+          showTitle('เลือก ประเภท'),
+          radioListBuyer(size),
+          radioListSeller(size),
+          radioListRider(size),
         ],
       ),
     );
   }
 
+  Row radioListBuyer(double size) {
+    return Row(mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(width: size*0.6,
+          child: RadioListTile(
+            value: 'buyer',
+            groupValue: typeUser,
+            onChanged: (value) {
+              setState(() {
+                typeUser = value as String?;
+              });
+            },
+            title: ShowTitle(
+                title: 'ผู้ซื้อ (Buyer)', textStyle: Static_val().h3Style()),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row radioListSeller(double size) {
+    return Row(mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(width: size*0.6,
+          child: RadioListTile(
+            value: 'seller',
+            groupValue: typeUser,
+            onChanged: (value) { setState(() {
+                typeUser = value as String?;
+              });
+            },
+            title: ShowTitle(
+                title: 'ผู้ขาย (Seller)', textStyle: Static_val().h3Style()),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row radioListRider(double size) {
+    return Row(mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(width: size*0.6,
+          child: RadioListTile(
+            value: 'rider',
+            groupValue: typeUser,
+            onChanged: (value) {
+               setState(() {
+                typeUser = value;
+              });
+            },
+            title: ShowTitle(
+                title: 'ผู้ส่ง (Rider)', textStyle: Static_val().h3Style()),
+          ),
+        ),
+      ],
+    );
+  }
+
   Container showTitle(String title) {
-    return Container(margin: EdgeInsets.symmetric(vertical: 16),
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 16),
       child: ShowTitle(
         title: title,
         textStyle: Static_val().h2Style(),
