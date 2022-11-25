@@ -7,9 +7,9 @@ class Static_val {
 //Route
   static String routeAuthen = '/authen';
   static String routeCreate = '/createAccount';
-  static String routeBuyer = 'buyerService';
-  static String routeSale = 'saleService';
-  static String routerider = 'rideService';
+  static String routeBuyer = '/buyerService';
+  static String routeSale = '/saleService';
+  static String routerider = '/rideService';
 
 // Image
   static String image1 = 'assets/images/1.png';
@@ -27,19 +27,22 @@ class Static_val {
         fontSize: 24,
         color: dart,
         fontWeight: FontWeight.bold,
-  );
+      );
 
   TextStyle h2Style() => TextStyle(
         fontSize: 18,
         color: dart,
         fontWeight: FontWeight.w700,
-  );
+      );
 
   TextStyle h3Style() => TextStyle(
         fontSize: 14,
         color: dart,
         fontWeight: FontWeight.normal,
-  );
-
-
+      );
+  ButtonStyle myButtonStyle() => ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
+      );
 }

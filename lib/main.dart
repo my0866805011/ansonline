@@ -9,9 +9,9 @@ import 'package:flutter/material.dart';
 final Map<String, WidgetBuilder> map = {
   '/authen': (BuildContext context) => const Authen(),
   '/createAccount': (BuildContext context) => const CreateAcc(),
-  'buyerService': (BuildContext context) => const BuyService(),
-  'saleService': (BuildContext context) => const SalerService(),
-  'riderService': (BuildContext context) => const RiderService(),
+  '/buyerService': (BuildContext context) => const BuyService(),
+  '/saleService': (BuildContext context) => const SalerService(),
+  '/riderService': (BuildContext context) => const RiderService(),
 };
 
 String? initlalRoute;
