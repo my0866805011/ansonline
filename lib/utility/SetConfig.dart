@@ -16,6 +16,7 @@ class Static_val {
   static String image2 = 'assets/images/2.png';
   static String image3 = 'assets/images/3.png';
   static String image4 = 'assets/images/4.png';
+  static String avatar = 'assets/images/avatar.png';
 
 //Color
   static Color primary = const Color(0xff87861d);

@@ -1,4 +1,5 @@
 import 'package:ansonline/utility/SetConfig.dart';
+import 'package:ansonline/widgets/show_image.dart';
 import 'package:ansonline/widgets/shw_title.dart';
 import 'package:flutter/material.dart';
 
@@ -52,9 +53,11 @@ class _CreateAccState extends State<CreateAcc> {
               labelStyle: Static_val().h3Style(),
               labelText: 'Address :',
               prefixIcon: Padding(
-                padding: const EdgeInsets.fromLTRB(0,0,0,60), 
-              child: Icon(Icons.home, color: Static_val.light,
-                 ),
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 60),
+                child: Icon(
+                  Icons.home,
+                  color: Static_val.light,
+                ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Static_val.dart),
@@ -70,7 +73,8 @@ class _CreateAccState extends State<CreateAcc> {
       ],
     );
   }
-Row phoneMethod(double size) {
+
+  Row phoneMethod(double size) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -97,7 +101,7 @@ Row phoneMethod(double size) {
     );
   }
 
-Row userMethod(double size) {
+  Row userMethod(double size) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -124,7 +128,7 @@ Row userMethod(double size) {
     );
   }
 
-Row passwordMethod(double size) {
+  Row passwordMethod(double size) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -151,10 +155,6 @@ Row passwordMethod(double size) {
     );
   }
 
-
-
-
-
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
@@ -163,7 +163,8 @@ Row passwordMethod(double size) {
         title: Text('Create New Account'),
         backgroundColor: Static_val.primary,
       ),
-      body:GestureDetector(onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: ListView(
           children: [
             showTitle('ข้อมูลทั่วไป'),
@@ -177,6 +178,23 @@ Row passwordMethod(double size) {
             phoneMethod(size),
             userMethod(size),
             passwordMethod(size),
+            showTitle('รูปภาพ'),
+            ShowTitle(
+                title: 'รูปภาพที่ต้องการแสดง',
+                textStyle: Static_val().h3Style()
+            ),
+            Row(crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(onPressed: (() {}), 
+                icon: const Icon(Icons.add_a_photo,size: 36,)),
+                Container(margin: EdgeInsets.symmetric(vertical: 16),
+                  width: size*0.6,
+                  child: ShowImage(path: Static_val.avatar)),
+                IconButton(onPressed: (() {}),
+                icon: const Icon(Icons.add_photo_alternate,size: 36,)),
+              ],
+            ),
           ],
         ),
       ),
