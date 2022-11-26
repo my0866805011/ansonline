@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:ansonline/utility/SetConfig.dart';
 import 'package:ansonline/widgets/show_image.dart';
 import 'package:ansonline/widgets/shw_title.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CreateAcc extends StatefulWidget {
   const CreateAcc({super.key});
@@ -12,6 +15,7 @@ class CreateAcc extends StatefulWidget {
 
 class _CreateAccState extends State<CreateAcc> {
   String? typeUser;
+  File? file;
 
   Row nameMethod(double size) {
     return Row(
@@ -181,23 +185,50 @@ class _CreateAccState extends State<CreateAcc> {
             showTitle('รูปภาพ'),
             ShowTitle(
                 title: 'รูปภาพที่ต้องการแสดง',
-                textStyle: Static_val().h3Style()
-            ),
-            Row(crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(onPressed: (() {}), 
-                icon: const Icon(Icons.add_a_photo,size: 36,)),
-                Container(margin: EdgeInsets.symmetric(vertical: 16),
-                  width: size*0.6,
-                  child: ShowImage(path: Static_val.avatar)),
-                IconButton(onPressed: (() {}),
-                icon: const Icon(Icons.add_photo_alternate,size: 36,)),
-              ],
-            ),
+                textStyle: Static_val().h3Style()),
+            avatarMethod(size),
           ],
         ),
       ),
+    );
+  }
+  Future<void>  chooseImage(ImageSource source)async{
+    try {
+      var result = await ImagePicker().getImage(
+        source: source,
+        maxWidth: 800,
+        maxHeight: 800,
+      );
+      setState(() {
+        file = File(result!.path);
+      });
+    } catch (e){}
+  }
+  
+
+  Row avatarMethod(double size) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        IconButton(
+            onPressed: ()=> chooseImage(ImageSource.camera),
+            icon: const Icon(
+              Icons.add_a_photo,
+              size: 36,
+            )),
+        Container(
+            margin: EdgeInsets.symmetric(vertical: 16),
+            width: size * 0.6,
+            child: file == null ? 
+            ShowImage(path: Static_val.avatar) : Image.file(file!)),
+        IconButton(
+            onPressed: (() {}),
+            icon: const Icon(
+              Icons.add_photo_alternate,
+              size: 36,
+            )),
+      ],
     );
   }
 
@@ -276,4 +307,6 @@ class _CreateAccState extends State<CreateAcc> {
       ),
     );
   }
+  
+ 
 }
