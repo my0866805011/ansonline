@@ -39,6 +39,122 @@ class _CreateAccState extends State<CreateAcc> {
     );
   }
 
+  Row addressMethod(double size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 16),
+          width: size * 0.6,
+          child: TextFormField(
+            maxLines: 3,
+            decoration: InputDecoration(
+              labelStyle: Static_val().h3Style(),
+              labelText: 'Address :',
+              prefixIcon: Padding(
+                padding: const EdgeInsets.fromLTRB(0,0,0,60), 
+              child: Icon(Icons.home, color: Static_val.light,
+                 ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Static_val.dart),
+                borderRadius: BorderRadius.circular(30),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Static_val.light),
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+Row phoneMethod(double size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 16),
+          width: size * 0.6,
+          child: TextFormField(
+            decoration: InputDecoration(
+              labelStyle: Static_val().h3Style(),
+              labelText: 'Phone :',
+              prefixIcon: Icon(Icons.phone, color: Static_val.light),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Static_val.dart),
+                borderRadius: BorderRadius.circular(30),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Static_val.light),
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+Row userMethod(double size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 16),
+          width: size * 0.6,
+          child: TextFormField(
+            decoration: InputDecoration(
+              labelStyle: Static_val().h3Style(),
+              labelText: 'User :',
+              prefixIcon: Icon(Icons.perm_identity, color: Static_val.light),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Static_val.dart),
+                borderRadius: BorderRadius.circular(30),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Static_val.light),
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+Row passwordMethod(double size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 16),
+          width: size * 0.6,
+          child: TextFormField(
+            decoration: InputDecoration(
+              labelStyle: Static_val().h3Style(),
+              labelText: 'Password :',
+              prefixIcon: Icon(Icons.lock_outline, color: Static_val.light),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Static_val.dart),
+                borderRadius: BorderRadius.circular(30),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Static_val.light),
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
@@ -47,23 +163,32 @@ class _CreateAccState extends State<CreateAcc> {
         title: Text('Create New Account'),
         backgroundColor: Static_val.primary,
       ),
-      body: ListView(
-        children: [
-          showTitle('ข้อมูลทั่วไป'),
-          nameMethod(size),
-          showTitle('เลือก ประเภท'),
-          radioListBuyer(size),
-          radioListSeller(size),
-          radioListRider(size),
-        ],
+      body:GestureDetector(onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        child: ListView(
+          children: [
+            showTitle('ข้อมูลทั่วไป'),
+            nameMethod(size),
+            showTitle('เลือก ประเภท'),
+            radioListBuyer(size),
+            radioListSeller(size),
+            radioListRider(size),
+            showTitle('ข้อมูลพื้นฐาน'),
+            addressMethod(size),
+            phoneMethod(size),
+            userMethod(size),
+            passwordMethod(size),
+          ],
+        ),
       ),
     );
   }
 
   Row radioListBuyer(double size) {
-    return Row(mainAxisAlignment: MainAxisAlignment.center,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(width: size*0.6,
+        Container(
+          width: size * 0.6,
           child: RadioListTile(
             value: 'buyer',
             groupValue: typeUser,
@@ -81,13 +206,16 @@ class _CreateAccState extends State<CreateAcc> {
   }
 
   Row radioListSeller(double size) {
-    return Row(mainAxisAlignment: MainAxisAlignment.center,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(width: size*0.6,
+        Container(
+          width: size * 0.6,
           child: RadioListTile(
             value: 'seller',
             groupValue: typeUser,
-            onChanged: (value) { setState(() {
+            onChanged: (value) {
+              setState(() {
                 typeUser = value as String?;
               });
             },
@@ -100,14 +228,16 @@ class _CreateAccState extends State<CreateAcc> {
   }
 
   Row radioListRider(double size) {
-    return Row(mainAxisAlignment: MainAxisAlignment.center,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(width: size*0.6,
+        Container(
+          width: size * 0.6,
           child: RadioListTile(
             value: 'rider',
             groupValue: typeUser,
             onChanged: (value) {
-               setState(() {
+              setState(() {
                 typeUser = value;
               });
             },
