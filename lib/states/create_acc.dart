@@ -192,19 +192,19 @@ class _CreateAccState extends State<CreateAcc> {
       ),
     );
   }
-  Future<void>  chooseImage(ImageSource source)async{
+
+  Future<void> chooseImage(ImageSource source) async {
     try {
       var result = await ImagePicker().getImage(
         source: source,
         maxWidth: 800,
         maxHeight: 800,
-      );
+    );
       setState(() {
         file = File(result!.path);
       });
-    } catch (e){}
+    } catch (e) {}
   }
-  
 
   Row avatarMethod(double size) {
     return Row(
@@ -212,7 +212,7 @@ class _CreateAccState extends State<CreateAcc> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         IconButton(
-            onPressed: ()=> chooseImage(ImageSource.camera),
+            onPressed: () => chooseImage(ImageSource.camera),
             icon: const Icon(
               Icons.add_a_photo,
               size: 36,
@@ -220,14 +220,16 @@ class _CreateAccState extends State<CreateAcc> {
         Container(
             margin: EdgeInsets.symmetric(vertical: 16),
             width: size * 0.6,
-            child: file == null ? 
-            ShowImage(path: Static_val.avatar) : Image.file(file!)),
+            child: file == null
+                ? ShowImage(path: Static_val.avatar)
+                : Image.file(file!)),
         IconButton(
-            onPressed: (() {}),
-            icon: const Icon(
-              Icons.add_photo_alternate,
-              size: 36,
-            )),
+          onPressed: () => chooseImage(ImageSource.gallery),
+          icon: const Icon(
+            Icons.add_photo_alternate,
+            size: 36,
+          ),
+        ),
       ],
     );
   }
@@ -307,6 +309,4 @@ class _CreateAccState extends State<CreateAcc> {
       ),
     );
   }
-  
- 
 }
