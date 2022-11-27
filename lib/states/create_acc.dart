@@ -4,6 +4,7 @@ import 'package:ansonline/utility/SetConfig.dart';
 import 'package:ansonline/widgets/show_image.dart';
 import 'package:ansonline/widgets/shw_title.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CreateAcc extends StatefulWidget {
@@ -16,6 +17,24 @@ class CreateAcc extends StatefulWidget {
 class _CreateAccState extends State<CreateAcc> {
   String? typeUser;
   File? file;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    findLatLng();
+  }
+
+  Future<Null> findLatLng() async {
+    bool locationService;
+    LocationPermission locationPermission;
+    locationService = await Geolocator.isLocationServiceEnabled();
+    if (locationService) {
+      print('Service Location Open');
+    } else {
+      print('Service Localtion Close');
+    }
+  }
 
   Row nameMethod(double size) {
     return Row(
@@ -199,7 +218,7 @@ class _CreateAccState extends State<CreateAcc> {
         source: source,
         maxWidth: 800,
         maxHeight: 800,
-    );
+      );
       setState(() {
         file = File(result!.path);
       });
