@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:ansonline/utility/SetConfig.dart';
 import 'package:ansonline/utility/my_dialog.dart';
 import 'package:ansonline/widgets/show_image.dart';
+import 'package:ansonline/widgets/show_progress.dart';
 import 'package:ansonline/widgets/shw_title.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -260,7 +261,13 @@ class _CreateAccState extends State<CreateAcc> {
     );
   }
 
-  Widget showMap() => Text('Lat = $lat, Lng = $lng');
+  Widget showMap() => Container(color: Colors.green,
+    width: double.infinity,
+    height: 200,
+    
+    child: lat ==null ? const ShowProgress() :
+     Text('Lat = $lat, Lng = $lng'),
+    );
 
   Future<void> chooseImage(ImageSource source) async {
     try {
