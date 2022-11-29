@@ -18,6 +18,7 @@ class CreateAcc extends StatefulWidget {
 class _CreateAccState extends State<CreateAcc> {
   String? typeUser;
   File? file;
+  double? lat, lng;
 
   @override
   void initState() {
@@ -39,20 +40,44 @@ class _CreateAccState extends State<CreateAcc> {
         locationPermission = await Geolocator.requestPermission();
         if (locationPermission == LocationPermission.deniedForever) {
           MyDialog().alerlocationService(
-            context, 'ไม่อนุญาติแชร์', 'โปรดแชร์ Location');
+              context, 'ไม่อนุญาติแชร์', 'โปรดแชร์ Location');
         } else {
           //Find Latlng
+          findLagLng();
         }
       } else {
         if (locationPermission == LocationPermission.deniedForever) {
-          MyDialog().alerlocationService(context,'ไม่อนุญาติแชร์', 'โปรดแชร์ Location');
+          MyDialog().alerlocationService(
+              context, 'ไม่อนุญาติแชร์', 'โปรดแชร์ Location');
         } else {
           //Find
+          findLagLng();
         }
       }
     } else {
       print('Service Localtion Close');
-      MyDialog().alerlocationService(context,'Location Close', 'Open Location' );
+      MyDialog()
+          .alerlocationService(context, 'Location Close', 'Open Location');
+    }
+  }
+
+  Future<Null> findLagLng() async {
+    print('findLatLan ==> Work');
+    Position? position = await findPostion();
+    setState(() {
+      lat = position!.latitude;
+      lng = position.longitude;
+      print('lat = $lat, lng = $lng');
+    });
+  }
+
+  Future<Position?> findPostion() async {
+    Position position;
+    try {
+      position = await Geolocator.getCurrentPosition();
+      return position;
+    } catch (e) {
+      return null;
     }
   }
 
@@ -226,11 +251,16 @@ class _CreateAccState extends State<CreateAcc> {
                 title: 'รูปภาพที่ต้องการแสดง',
                 textStyle: Static_val().h3Style()),
             avatarMethod(size),
+            showTitle('แสดงพิกัด'),
+            showMap(),
+
           ],
         ),
       ),
     );
   }
+
+  Widget showMap() => Text('Lat = $lat, Lng = $lng');
 
   Future<void> chooseImage(ImageSource source) async {
     try {
