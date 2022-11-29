@@ -28,9 +28,13 @@ class _CreateAccState extends State<CreateAcc> {
   Future<Null> findLatLng() async {
     bool locationService;
     LocationPermission locationPermission;
+
     locationService = await Geolocator.isLocationServiceEnabled();
     if (locationService) {
       print('Service Location Open');
+
+      locationPermission = await Geolocator.checkPermission();
+      if (locationPermission == LocationPermission.deniedForever) {}
     } else {
       print('Service Localtion Close');
     }
