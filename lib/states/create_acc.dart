@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:ansonline/utility/SetConfig.dart';
+import 'package:ansonline/utility/my_dialog.dart';
 import 'package:ansonline/widgets/show_image.dart';
 import 'package:ansonline/widgets/shw_title.dart';
 import 'package:flutter/material.dart';
@@ -22,10 +23,10 @@ class _CreateAccState extends State<CreateAcc> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    findLatLng();
+    checkPermission();
   }
 
-  Future<Null> findLatLng() async {
+  Future<Null> checkPermission() async {
     bool locationService;
     LocationPermission locationPermission;
 
@@ -34,9 +35,24 @@ class _CreateAccState extends State<CreateAcc> {
       print('Service Location Open');
 
       locationPermission = await Geolocator.checkPermission();
-      if (locationPermission == LocationPermission.deniedForever) {}
+      if (locationPermission == LocationPermission.denied) {
+        locationPermission = await Geolocator.requestPermission();
+        if (locationPermission == LocationPermission.deniedForever) {
+          MyDialog().alerlocationService(
+            context, 'ไม่อนุญาติแชร์', 'โปรดแชร์ Location');
+        } else {
+          //Find Latlng
+        }
+      } else {
+        if (locationPermission == LocationPermission.deniedForever) {
+          MyDialog().alerlocationService(context,'ไม่อนุญาติแชร์', 'โปรดแชร์ Location');
+        } else {
+          //Find
+        }
+      }
     } else {
       print('Service Localtion Close');
+      MyDialog().alerlocationService(context,'Location Close', 'Open Location' );
     }
   }
 
