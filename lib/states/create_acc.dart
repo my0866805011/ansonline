@@ -20,6 +20,7 @@ class _CreateAccState extends State<CreateAcc> {
   String? typeUser;
   File? file;
   double? lat, lng;
+  
 
   @override
   void initState() {
