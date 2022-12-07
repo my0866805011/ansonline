@@ -172,6 +172,7 @@ class _CreateAccState extends State<CreateAcc> {
           margin: const EdgeInsets.only(top: 16),
           width: size * 0.6,
           child: TextFormField(
+            keyboardType: TextInputType.phone,
             controller: phoneCtl,
             validator: (value) {
               if (value!.isEmpty) {
@@ -274,46 +275,58 @@ class _CreateAccState extends State<CreateAcc> {
     double size = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: (){
-              if (formKey.currentState!.validate()){
-                
-              }
-            }, icon: const Icon(Icons.cloud_upload))],
+        actions: [insertData()],
         title: const Text('Create New Account'),
         backgroundColor: Static_val.primary,
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         behavior: HitTestBehavior.opaque,
-
-        child: Form(key: formKey,
-          child: ListView(
-            children: [
-              showTitle('ข้อมูลทั่วไป'),
-              nameMethod(size),
-              showTitle('เลือก ประเภท'),
-              radioListBuyer(size),
-              radioListSeller(size),
-              radioListRider(size),
-              showTitle('ข้อมูลพื้นฐาน'),
-              addressMethod(size),
-              phoneMethod(size),
-              userMethod(size),
-              passwordMethod(size),
-              showTitle('รูปภาพ'),
-              ShowTitle(
-                  title: 'รูปภาพที่ต้องการแสดง',
-                  textStyle: Static_val().h3Style()),
-              avatarMethod(size),
-              showTitle('แสดงพิกัด'),
-              showMap(),
-            ],
+        child: Form(
+          key: formKey,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                showTitle('ข้อมูลทั่วไป'),
+                nameMethod(size),
+                showTitle('เลือก ประเภท'),
+                radioListBuyer(size),
+                radioListSeller(size),
+                radioListRider(size),
+                showTitle('ข้อมูลพื้นฐาน'),
+                addressMethod(size),
+                phoneMethod(size),
+                userMethod(size),
+                passwordMethod(size),
+                showTitle('รูปภาพ'),
+                ShowTitle(
+                    title: 'รูปภาพที่ต้องการแสดง',
+                    textStyle: Static_val().h3Style()),
+                avatarMethod(size),
+                showTitle('แสดงพิกัด'),
+                showMap(),
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  IconButton insertData() {
+    return IconButton(
+        onPressed: () {
+          if (formKey.currentState!.validate()) {
+            if (typeUser == null) {
+              print('Non Choose type User');
+              MyDialog()
+                  .normalDialog(context, 'User Type', 'Choose User type ');
+            } else {
+              print('Process Insert ');
+            }
+          }
+        },
+        icon: const Icon(Icons.cloud_upload));
   }
 
   Widget showMap() => Container(
