@@ -20,8 +20,12 @@ class _CreateAccState extends State<CreateAcc> {
   String? typeUser;
   File? file;
   double? lat, lng;
-  
-
+  final formKey = GlobalKey<FormState>();
+  TextEditingController nameCtl = TextEditingController();
+  TextEditingController addressCtl = TextEditingController();
+  TextEditingController phoneCtl = TextEditingController();
+  TextEditingController userCtl = TextEditingController();
+  TextEditingController passwordCtl = TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
@@ -91,9 +95,17 @@ class _CreateAccState extends State<CreateAcc> {
           margin: EdgeInsets.only(top: 16),
           width: size * 0.6,
           child: TextFormField(
+            controller: nameCtl,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return ' ระบุ รายชื่อ ';
+              } else {
+                return null;
+              }
+            },
             decoration: InputDecoration(
               labelStyle: Static_val().h3Style(),
-              labelText: 'User :',
+              labelText: 'Name:',
               prefixIcon: Icon(Icons.account_circle, color: Static_val.light),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Static_val.dart),
@@ -118,6 +130,14 @@ class _CreateAccState extends State<CreateAcc> {
           margin: EdgeInsets.only(top: 16),
           width: size * 0.6,
           child: TextFormField(
+            controller: addressCtl,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return ' โปรด ระบุ ที่อยู่';
+              } else {
+                return null;
+              }
+            },
             maxLines: 3,
             decoration: InputDecoration(
               labelStyle: Static_val().h3Style(),
@@ -149,9 +169,17 @@ class _CreateAccState extends State<CreateAcc> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          margin: EdgeInsets.only(top: 16),
+          margin: const EdgeInsets.only(top: 16),
           width: size * 0.6,
           child: TextFormField(
+            controller: phoneCtl,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'โปรด ระบุ หมายเลขโทรศัพท์';
+              } else {
+                return null;
+              }
+            },
             decoration: InputDecoration(
               labelStyle: Static_val().h3Style(),
               labelText: 'Phone :',
@@ -179,6 +207,14 @@ class _CreateAccState extends State<CreateAcc> {
           margin: EdgeInsets.only(top: 16),
           width: size * 0.6,
           child: TextFormField(
+            controller: userCtl,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'โปรด ระบุ User';
+              } else {
+                return null;
+              }
+            },
             decoration: InputDecoration(
               labelStyle: Static_val().h3Style(),
               labelText: 'User :',
@@ -206,6 +242,14 @@ class _CreateAccState extends State<CreateAcc> {
           margin: EdgeInsets.only(top: 16),
           width: size * 0.6,
           child: TextFormField(
+            controller: passwordCtl,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return ' possword Not Empty';
+              } else {
+                return null;
+              }
+            },
             decoration: InputDecoration(
               labelStyle: Static_val().h3Style(),
               labelText: 'Password :',
@@ -230,45 +274,55 @@ class _CreateAccState extends State<CreateAcc> {
     double size = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create New Account'),
+        actions: [
+          IconButton(
+            onPressed: (){
+              if (formKey.currentState!.validate()){
+                
+              }
+            }, icon: const Icon(Icons.cloud_upload))],
+        title: const Text('Create New Account'),
         backgroundColor: Static_val.primary,
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: ListView(
-          children: [
-            showTitle('ข้อมูลทั่วไป'),
-            nameMethod(size),
-            showTitle('เลือก ประเภท'),
-            radioListBuyer(size),
-            radioListSeller(size),
-            radioListRider(size),
-            showTitle('ข้อมูลพื้นฐาน'),
-            addressMethod(size),
-            phoneMethod(size),
-            userMethod(size),
-            passwordMethod(size),
-            showTitle('รูปภาพ'),
-            ShowTitle(
-                title: 'รูปภาพที่ต้องการแสดง',
-                textStyle: Static_val().h3Style()),
-            avatarMethod(size),
-            showTitle('แสดงพิกัด'),
-            showMap(),
+        behavior: HitTestBehavior.opaque,
 
-          ],
+        child: Form(key: formKey,
+          child: ListView(
+            children: [
+              showTitle('ข้อมูลทั่วไป'),
+              nameMethod(size),
+              showTitle('เลือก ประเภท'),
+              radioListBuyer(size),
+              radioListSeller(size),
+              radioListRider(size),
+              showTitle('ข้อมูลพื้นฐาน'),
+              addressMethod(size),
+              phoneMethod(size),
+              userMethod(size),
+              passwordMethod(size),
+              showTitle('รูปภาพ'),
+              ShowTitle(
+                  title: 'รูปภาพที่ต้องการแสดง',
+                  textStyle: Static_val().h3Style()),
+              avatarMethod(size),
+              showTitle('แสดงพิกัด'),
+              showMap(),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget showMap() => Container(color: Colors.green,
-    width: double.infinity,
-    height: 200,
-    
-    child: lat ==null ? const ShowProgress() :
-     Text('Lat = $lat, Lng = $lng'),
-    );
+  Widget showMap() => Container(
+        color: Colors.green,
+        width: double.infinity,
+        height: 200,
+        child:
+            lat == null ? const ShowProgress() : Text('Lat = $lat, Lng = $lng'),
+      );
 
   Future<void> chooseImage(ImageSource source) async {
     try {
