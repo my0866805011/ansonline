@@ -17,8 +17,8 @@ if (!$conn->set_charset("utf8")) {
 	}
 
 if(isset($_GET))  {
-    if ($_GET['IsAdd'] == 'true'){
-
+    if ($_GET['isAdd'] == 'true'){
+/*
         $name = $_GET['name'];
         $type = $_GET['type'];
         $address = $_GET['address'];
@@ -28,17 +28,34 @@ if(isset($_GET))  {
         $avartar=$_GET['avartar'];
         $lat = $_GET['lat'];
         $lng =$_GET['lang'];
+*/
 
+        $sql="INSERT INTO `usertbl` (`id`) VALUES (Null)";
 
-        $sql="INSERT INTO `useraccount`(`id`, `name`, `type`, `address`, `phone`, `user`, `password`, `avertar`, `lat`, `lng`) VALUES (Null,'$name','$type','$address','$phone','$user','$password','$avartar','$lat','$lng')";
+    /*    
 
+    $sql="INSERT INTO `usertbl` (`name`) VALUES (`$name`)";
+    
+    /*  
+    $sql="INSERT INTO `useraccount` (`id`, `name`, `type`, `address`, `phone`, `user`, `password`, `avertar`, `lat`, `lng`) VALUES (Null,'$name','$type','$address','$phone','$user','$password','$avartar','$lat','$lng')";
+*/
         $result=mysqli_query($conn,$sql);
         if ($result){
             echo "true";
         }else{
              echo "false";
         }
-    } else echo "Welcome Inser";
+    } else
+    
+    echo "Welcome Inser_user.php";
+    $sql="INSERT INTO `usertbl` (`id`,'name') VALUES (Null,xxxx)";
+    $result=mysqli_query($conn,$sql);
+    if ($result){
+        echo "true";
+    }else{
+         echo "false";
+    }
+    
 }
 mysqli_close($conn);
 
