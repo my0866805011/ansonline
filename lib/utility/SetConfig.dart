@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 // ignore: camel_case_types
 class Static_val {
   static String appName = 'AnsOnline';
+  static String domain = 'https://57ans.com/ansonline/api';
 
 //Route
   static String routeAuthen = '/authen';

@@ -2,7 +2,7 @@
 	include 'connected.php';
 	header("Access-Control-Allow-Origin: *");
 
-if (!$link) {
+if (!$conn) {
     echo "Error: Unable to connect to MySQL." . PHP_EOL;
     echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
     echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
@@ -20,7 +20,7 @@ if (isset($_GET)) {
 				
 		$user = $_GET['user'];
 
-		$result = mysqli_query($conn, "SELECT * FROM user WHERE user = '$user'");
+		$result = mysqli_query($conn, "SELECT * FROM useraccount WHERE user = '$user'");
 
 		if ($result) {
 

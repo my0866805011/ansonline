@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:dio/dio.dart';
 import 'package:ansonline/utility/SetConfig.dart';
 import 'package:ansonline/utility/my_dialog.dart';
 import 'package:ansonline/widgets/show_image.dart';
@@ -323,10 +323,25 @@ class _CreateAccState extends State<CreateAcc> {
                   .normalDialog(context, 'User Type', 'Choose User type ');
             } else {
               print('Process Insert ');
+              uploadInsertData();
             }
           }
         },
         icon: const Icon(Icons.cloud_upload));
+  }
+
+  Future<Null> uploadInsertData() async {
+    String name = nameCtl.text;
+    String address = addressCtl.text;
+    String password = passwordCtl.text;
+    String phone = phoneCtl.text;
+    String user = userCtl.text;
+    print(' name = $name, address = $address, user =$user');
+    print(' phone = $phone, password = $password, user =$user');
+    String path ="https://www.57ans.com/ansonline/api/getUserWhereUser.php?isAdd=true&user=$user";
+//  'https://www.57ans.com/ansonline/api/getUserWhereUser.php?isAdd=true&user=$user';
+
+    await Dio().get(path).then((value) => print('## value ==>> $value'));
   }
 
   Widget showMap() => Container(
