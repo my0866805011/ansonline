@@ -11,7 +11,7 @@ if (isset($_GET)) {
 
        // INSERT INTO `usertable`(`id`, `type`, `name`, `user`, `password`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]')    
         
-    $sql="INSERT INTO `usertable` (`id`, `type`, `name`, `user`, `password`) VALUES (NULL, '$type', '$name', '$user', '$password');";
+    $sql="INSERT INTO `usertable` (`id`, `type`, `name`, `user`, `password`) VALUES (Null, '$type', '$name', '$user', '$password');";
    
     $result=mysqli_query($conn,$sql);
         if ($result){

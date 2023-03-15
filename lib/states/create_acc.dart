@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:ansonline/utility/SetConfig.dart';
@@ -338,10 +340,10 @@ class _CreateAccState extends State<CreateAcc> {
     String user = userCtl.text;
     
     print(' name = $name, address = $address, user =$user');
-    print(' phone = $phone, password = $password, user =$user, type=$typeUser');
-    String path ="https://www.57ans.com/ansonline/mysql/myapi/insert.php?isAdd=true&name=$name&type=$typeUser&user=$user&password=$password";
-   // String path ="https://www.57ans.com/appfood/insertuser.php?isAdd=true&name=phairot 14-06-2507&type=shop&user=username&password=12345678";
-  //  String path ="https://www.57ans.com/ansonline/api/getUserWhereUser.php?isAdd=true&user=$user";
+    
+   //String path ="https://www.57ans.com/ansonline/api/insertuser.php?isAdd=true&name=$name&type=$typeUser&user=$user&password=$password";
+  // String path ="https://www.57ans.com/ansonline/api/insertuser.php?isAdd=true&name=phairot 14-06-2507&type=shop&user=username&password=12345678";
+    String path ="https://www.57ans.com/ansonline/api/getUserWhereUser.php?isAdd=true&user=$user";
 //  'https://www.57ans.com/ansonline/api/getUserWhereUser.php?isAdd=true&user=$user';
 
     await Dio().get(path).then((value) => print('## value ==>> $value'));
