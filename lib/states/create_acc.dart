@@ -304,7 +304,7 @@ class _CreateAccState extends State<CreateAcc> {
                     textStyle: Static_val().h3Style()),
                 avatarMethod(size),
                 showTitle('แสดงพิกัด'),
-                showMap(),
+                //showMap(),
               ],
             ),
           ),
@@ -336,9 +336,12 @@ class _CreateAccState extends State<CreateAcc> {
     String password = passwordCtl.text;
     String phone = phoneCtl.text;
     String user = userCtl.text;
+    
     print(' name = $name, address = $address, user =$user');
-    print(' phone = $phone, password = $password, user =$user');
-    String path ="https://www.57ans.com/ansonline/api/getUserWhereUser.php?isAdd=true&user=$user";
+    print(' phone = $phone, password = $password, user =$user, type=$typeUser');
+    String path ="https://www.57ans.com/ansonline/mysql/myapi/insert.php?isAdd=true&name=$name&type=$typeUser&user=$user&password=$password";
+   // String path ="https://www.57ans.com/appfood/insertuser.php?isAdd=true&name=phairot 14-06-2507&type=shop&user=username&password=12345678";
+  //  String path ="https://www.57ans.com/ansonline/api/getUserWhereUser.php?isAdd=true&user=$user";
 //  'https://www.57ans.com/ansonline/api/getUserWhereUser.php?isAdd=true&user=$user';
 
     await Dio().get(path).then((value) => print('## value ==>> $value'));
@@ -354,6 +357,7 @@ class _CreateAccState extends State<CreateAcc> {
 
   Future<void> chooseImage(ImageSource source) async {
     try {
+      // ignore: deprecated_member_use
       var result = await ImagePicker().getImage(
         source: source,
         maxWidth: 800,
@@ -362,6 +366,7 @@ class _CreateAccState extends State<CreateAcc> {
       setState(() {
         file = File(result!.path);
       });
+    // ignore: empty_catches
     } catch (e) {}
   }
 
@@ -426,7 +431,7 @@ class _CreateAccState extends State<CreateAcc> {
             groupValue: typeUser,
             onChanged: (value) {
               setState(() {
-                typeUser = value as String?;
+                typeUser = value;
               });
             },
             title: ShowTitle(

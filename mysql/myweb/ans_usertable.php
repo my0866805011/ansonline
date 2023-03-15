@@ -26,12 +26,13 @@ include 'myconnect.php';
         <th>Email</th>  
         <th>Phone</th> 
         <th>Password</th>
+        <th>Type</th>
         <th>Edit</th>
         <th>Delete</th>
     </tr>
     <?php 
- $sql = "SELECT * FROM usertbl";
- $result = mysqli_query($conn,$sql);
+ $sql = "SELECT * FROM useraccount";
+ $result = mysqli_query   ($conn,$sql);
  while($row=mysqli_fetch_array($result)){  
     ?>
 
@@ -42,6 +43,7 @@ include 'myconnect.php';
         <td><?=$row["email"]?></td>
         <td><?=$row["phone"]?></td>      
         <td><?=$row["password"]?></td>
+        <td><?=$row["type"]?></td> 
         <td><a href="./edit_user.php?id=<?=$row["id"]?>" class="btn btn-warning" >Edit</a> </td>
         <td><a href="./delete_user.php?id=<?=$row["id"]?>" class="btn btn-danger" onclick="Del(this.href);return false;" >Delete</a> </td>
     </tr>

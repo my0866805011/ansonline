@@ -3,16 +3,11 @@ include 'myconnect.php';
 
 $m_name = $_POST['fname'];
 $m_user = $_POST['user'];
-$m_email = $_POST['email'];
-$m_phone =$_POST['phone'];
 $m_password =$_POST['password'];
+$m_type =$_POST['type'];
 
-#echo $m_name;
 
-/*$sql="INSERT INTO `usertbl` (`name`) VALUES (`$m_name`)";
-*/
-
-$sql="INSERT INTO `usertbl` (`id`, `name`, `user`, `email`, `phone`, `password`) VALUES (NULL, '$m_name', '$m_user', '$m_email', '$m_phone', '$m_password')";
+$sql="INSERT INTO `usertable` (`id`, `name`, `user`, `password`,`type` ) VALUES (NULL, '$m_name', '$m_user', '$m_password','$m_type')";
 
 
 $result=mysqli_query($conn,$sql);

@@ -1,7 +1,7 @@
 <?php 
 include './myconnect.php';
 $ids=$_GET['id'];
-$sql="DELETE FROM `usertbl` WHERE `id`='$ids' ";
+$sql="DELETE FROM `usertable` WHERE `id`='$ids' ";
 if(mysqli_query($conn,$sql)){
     echo "<script> alert('ลบข้อมูลเรียบร้อย');</script>";
     echo "<script> window.location='myshowuser.php';</script>";

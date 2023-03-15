@@ -20,7 +20,7 @@ if (isset($_GET)) {
 				
 		$user = $_GET['user'];
 
-		$result = mysqli_query($conn, "SELECT * FROM usertable WHERE user = '$user'");
+		$result = mysqli_query($conn, "SELECT * FROM useraccount WHERE user = '$user'");
 
 		if ($result) {
 
@@ -33,7 +33,7 @@ if (isset($_GET)) {
 
 		} //if
 
-	} else echo "Welcome Master UNG";	// if2
+	} else echo "Welcome getUserWhereUser.php";	// if2
    
 }	// if1
 
