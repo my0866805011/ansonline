@@ -5,11 +5,13 @@ import 'package:dio/dio.dart';
 import 'package:ansonline/utility/SetConfig.dart';
 import 'package:ansonline/utility/my_dialog.dart';
 import 'package:ansonline/widgets/show_image.dart';
-import 'package:ansonline/widgets/show_progress.dart';
+//import 'package:ansonline/widgets/show_progress.dart';
 import 'package:ansonline/widgets/shw_title.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../widgets/show_progress.dart';
 
 class CreateAcc extends StatefulWidget {
   const CreateAcc({super.key});
@@ -21,7 +23,7 @@ class CreateAcc extends StatefulWidget {
 class _CreateAccState extends State<CreateAcc> {
   String? typeUser;
   File? file;
-  double? lat, lng;
+  double? lat=0, lng=0;
   final formKey = GlobalKey<FormState>();
   TextEditingController nameCtl = TextEditingController();
   TextEditingController addressCtl = TextEditingController();
@@ -342,12 +344,37 @@ class _CreateAccState extends State<CreateAcc> {
     print(' name = $name, address = $address, user =$user');
     
    //String path ="https://www.57ans.com/ansonline/api/insertuser.php?isAdd=true&name=$name&type=$typeUser&user=$user&password=$password";
-  // String path ="https://www.57ans.com/ansonline/api/insertuser.php?isAdd=true&name=phairot 14-06-2507&type=shop&user=username&password=12345678";
+  
     String path ="https://www.57ans.com/ansonline/api/getUserWhereUser.php?isAdd=true&user=$user";
 //  'https://www.57ans.com/ansonline/api/getUserWhereUser.php?isAdd=true&user=$user';
 
-    await Dio().get(path).then((value) => print('## value ==>> $value'));
+    await Dio().get(path).then((value) {
+      print('## value ==>> $value');
+      print(value.toString());
+
+      if (value.toString() != 'null') {
+        print( '## user OK');
+        mysqlInseruser();
+       }else {
+        MyDialog().normalDialog(context, 'User False ?', 'User ซ้ำ');
+      }
+
+   });
   }
+  
+  Future<Null> mysqlInseruser(
+    {
+      String? name,
+      String? address,
+      String? password,
+      String? phone,
+      String? user,
+    }
+  ) async{
+    print(' InsertUser.php');
+    String apiInsertUser =  //String path ="https://www.57ans.com/ansonline/api/insertuser.php?isAdd=true&name=$name&type=$typeUser&user=$user&password=$password";
+  }
+
 
   Widget showMap() => Container(
         color: Colors.green,
@@ -365,10 +392,10 @@ class _CreateAccState extends State<CreateAcc> {
         maxWidth: 800,
         maxHeight: 800,
       );
-      setState(() {
+        setState(() {
         file = File(result!.path);
       });
-    // ignore: empty_catches
+   //  ignore: empty_catches
     } catch (e) {}
   }
 
