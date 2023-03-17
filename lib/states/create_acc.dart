@@ -22,6 +22,7 @@ class CreateAcc extends StatefulWidget {
 
 class _CreateAccState extends State<CreateAcc> {
   String? typeUser;
+  String? name,password,phone,user,address;
   File? file;
   double? lat=0, lng=0;
   final formKey = GlobalKey<FormState>();
@@ -362,19 +363,32 @@ class _CreateAccState extends State<CreateAcc> {
    });
   }
   
-  Future<Null> mysqlInseruser(
-    {
-      String? name,
-      String? address,
-      String? password,
-      String? phone,
-      String? user,
-    }
-  ) async{
-    print(' InsertUser.php');
-    String apiInsertUser =  //String path ="https://www.57ans.com/ansonline/api/insertuser.php?isAdd=true&name=$name&type=$typeUser&user=$user&password=$password";
-  }
+  Future<Null> mysqlInseruser() async{
+ String name = nameCtl.text;
+    String address = addressCtl.text;
+    String password = passwordCtl.text;
+    String phone = phoneCtl.text;
+    String user = userCtl.text;
+    
+    print(' name = $name, address = $address, user =$user');
 
+    print(' InsertUser.php');
+
+    String path ="https://www.57ans.com/ansonline/api/insertuser.php?isAdd=true&name=$name&user=$user&type=mytypex&password=$password";
+    //String path ="https://www.57ans.com/ansonline/api/insertuser.php?isAdd=true&name=$name&type=$typeUser&user=$user&password=$password";
+    await Dio().get(path).then((value) {
+        print('## value ==>> $value');
+        print(value.toString());
+
+      if (value.toString() != 'true') {
+        print( '## user OK');
+      //  Navigator.pop(context);
+        mysqlInseruser();
+       }else {
+        MyDialog().normalDialog(context, 'Create New User False !','User Try Again');
+      }
+    });
+  }
 
   Widget showMap() => Container(
         color: Colors.green,
@@ -438,7 +452,7 @@ class _CreateAccState extends State<CreateAcc> {
             groupValue: typeUser,
             onChanged: (value) {
               setState(() {
-                typeUser = value as String?;
+                typeUser = value ;
               });
             },
             title: ShowTitle(
