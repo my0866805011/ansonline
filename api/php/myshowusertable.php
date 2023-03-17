@@ -36,7 +36,7 @@ include 'myconnect.php';
     <?php 
 //INSERT INTO `useraccount`(`id`, `name`, `type`, `address`, `phone`, `user`, `password`, `avertar`, `lat`, `lng`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]','[value-8]','[value-9]','[value-10]')
 
- $sql = "SELECT * FROM useraccount";
+ $sql = "SELECT * FROM usertable";
  $result = mysqli_query($conn,$sql);
  while($row=mysqli_fetch_array($result)){  
     ?>
@@ -48,7 +48,7 @@ include 'myconnect.php';
         <td><?=$row["user"]?></td>
         <td><?=$row["email"]?></td>
         <td><?=$row["address"]?></td>  
-        <td><?=$row["password"]?></td>
+        <td><?=$row["ispassword"]?></td>
         <td><?=$row["type"]?></td>      
         <td><a href="./edit_user.php?id=<?=$row["id"]?>" class="btn btn-warning" >Edit</a> </td>
         <td><a href="./delete_user.php?id=<?=$row["id"]?>" class="btn btn-danger" onclick="Del(this.href);return false;" >Delete</a> </td>

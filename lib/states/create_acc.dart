@@ -342,9 +342,9 @@ class _CreateAccState extends State<CreateAcc> {
     String phone = phoneCtl.text;
     String user = userCtl.text;
     
-    print(' name = $name, address = $address, user =$user');
+    print(' name = $name, address = $address, user =$user, type =$typeUser ,password =$password');
     
-   //String path ="https://www.57ans.com/ansonline/api/insertuser.php?isAdd=true&name=$name&type=$typeUser&user=$user&password=$password";
+   //String path ="https://www.57ans.com/ansonline/api/insertuser.php?isAdd=true&name=$_name&type=$typeUser&user=$user&password=$password";
   
     String path ="https://www.57ans.com/ansonline/api/getUserWhereUser.php?isAdd=true&user=$user";
 //  'https://www.57ans.com/ansonline/api/getUserWhereUser.php?isAdd=true&user=$user';
@@ -355,7 +355,13 @@ class _CreateAccState extends State<CreateAcc> {
 
       if (value.toString() != 'null') {
         print( '## user OK');
-        mysqlInseruser();
+        mysqlInseruser(
+          name: name,
+          address: address,
+          phone: phone,
+          user: user,
+          password: password,     
+        );
        }else {
         MyDialog().normalDialog(context, 'User False ?', 'User ซ้ำ');
       }
@@ -363,27 +369,22 @@ class _CreateAccState extends State<CreateAcc> {
    });
   }
   
-  Future<Null> mysqlInseruser() async{
- String name = nameCtl.text;
-    String address = addressCtl.text;
-    String password = passwordCtl.text;
-    String phone = phoneCtl.text;
-    String user = userCtl.text;
-    
-    print(' name = $name, address = $address, user =$user');
+  Future<Null> mysqlInseruser(
+    {required String name, required String address, required String phone, required String user, required String password
+    }) async{
+    print(' name = $name, address = $address, user =$user , type =$typeUser');
 
     print(' InsertUser.php');
+    //String $sql ="INSERT INTO `usertable`(`id`, `name`, `type`, `user`, `address`,`ispassword`) VALUES (null,'$name','$type','$user','$address','$password');";
+    String path ="https://www.57ans.com/ansonline/api/insertuser.php?isAdd=true&name=$name&type=$typeUser&user=$user&address=$address&ispassword=$password";
 
-    String path ="https://www.57ans.com/ansonline/api/insertuser.php?isAdd=true&name=$name&user=$user&type=mytypex&password=$password";
-    //String path ="https://www.57ans.com/ansonline/api/insertuser.php?isAdd=true&name=$name&type=$typeUser&user=$user&password=$password";
     await Dio().get(path).then((value) {
         print('## value ==>> $value');
         print(value.toString());
 
       if (value.toString() != 'true') {
-        print( '## user OK');
-      //  Navigator.pop(context);
-        mysqlInseruser();
+        print( '## Insertuser OK');
+        Navigator.pop(context);
        }else {
         MyDialog().normalDialog(context, 'Create New User False !','User Try Again');
       }
