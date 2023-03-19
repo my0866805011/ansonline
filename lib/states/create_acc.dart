@@ -372,11 +372,11 @@ class _CreateAccState extends State<CreateAcc> {
   Future<Null> mysqlInseruser(
     {required String name, required String address, required String phone, required String user, required String password
     }) async{
-    print(' name = $name, address = $address, user =$user , type =$typeUser');
+    print(' name = $name, address = $address, user =$user , password = $password,  type =$typeUser ,phone= $phone');
 
     print(' InsertUser.php');
     //String $sql ="INSERT INTO `usertable`(`id`, `name`, `type`, `user`, `address`,`ispassword`) VALUES (null,'$name','$type','$user','$address','$password');";
-    String path ="https://www.57ans.com/ansonline/api/insertuser.php?isAdd=true&name=$name&type=$typeUser&user=$user&address=$address&ispassword=$password";
+    String path ="https://www.57ans.com/ansonline/api/insertuser.php?isAdd=true&ispass=$password&phne=$phone&name=$name&type=$typeUser&user=$user&address=$address";
 
     await Dio().get(path).then((value) {
         print('## value ==>> $value');

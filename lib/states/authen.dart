@@ -13,6 +13,8 @@ class Authen extends StatefulWidget {
 
 class _AuthenState extends State<Authen> {
   bool statusRedEye = true;
+  final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
@@ -21,16 +23,20 @@ class _AuthenState extends State<Authen> {
         child: GestureDetector(
           onTap: (() => FocusScope.of(context).requestFocus(FocusNode())),
           behavior: HitTestBehavior.opaque,
-          child: ListView(
-            children: [
-              newMethod(size),
-              appName(),
-              userMethod(size),
-              passwordMethod(size),
-              logIn(size),
-              createAccount(),
-            ],
+           child: Form(key: formKey,
+            
+            child: ListView(
+              children: [
+               newMethod(size),
+               appName(),
+               userMethod(size),
+               passwordMethod(size),
+               logIn(size),
+               createAccount(),
+             ],
+            ),
           ),
+
         ),
       ),
     );
@@ -62,7 +68,11 @@ class _AuthenState extends State<Authen> {
           width: size * 0.6,
           child: ElevatedButton(
             style: Static_val().myButtonStyle(),
-            onPressed: () {},
+            onPressed: () {
+              if (formKey.currentState!.validate()){
+                
+              }
+            },
             child: const Text('Login'),
           ),
         ),
@@ -78,6 +88,14 @@ class _AuthenState extends State<Authen> {
           margin: EdgeInsets.only(top: 16),
           width: size * 0.6,
           child: TextFormField(
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please Fill User in Blank';
+              } else {
+                return null;
+              }
+            
+          },
             decoration: InputDecoration(
               labelStyle: Static_val().h3Style(),
               labelText: 'User :',
@@ -105,6 +123,13 @@ class _AuthenState extends State<Authen> {
           margin: EdgeInsets.only(top: 16),
           width: size * 0.6,
           child: TextFormField(
+            validator: (value) {
+              if (value!.isEmpty) {
+              return 'Pleass Fill Passwird  ';
+              }else {
+                return null;
+              }
+            },
             obscureText: statusRedEye,
             decoration: InputDecoration(
               suffixIcon: IconButton(

@@ -9,11 +9,12 @@ if (isset($_GET)) {
         $type = $_GET['type'];
         $address = $_GET['address'];
         $password =$_GET['password'];
+        $phone = $_GET['phone'];
 
         //;INSERT INTO `usertable`(`id`, `name`, `type`, `user`, `address`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]')
-      
+       // INSERT INTO `usertable`(`id`, `name`, `type`, `user`, `address`, `ispass`, `phone`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]')
         
-     $sql ="INSERT INTO `usertable`(`id`, `name`, `type`, `user`, `address`,`ispassword`) VALUES (null,'$name','$type','$user','$address','$password');";
+     $sql ="INSERT INTO `usertable`( `id`,`ispass`,`name`, `type`, `user`, `address`,`phone`) VALUES (null,'password','$name','$type','$user','$address','phone');";
 
 
      //$sql ="INSERT INTO `usertable`(`id`, `name`) VALUES (null,'$name');";
