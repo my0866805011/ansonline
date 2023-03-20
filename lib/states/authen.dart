@@ -1,5 +1,10 @@
+import 'dart:convert';
+
+import 'package:ansonline/model/usermodel.dart';
 import 'package:ansonline/utility/SetConfig.dart';
+import 'package:ansonline/utility/my_dialog.dart';
 import 'package:ansonline/widgets/shw_title.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/show_image.dart';
@@ -14,6 +19,8 @@ class Authen extends StatefulWidget {
 class _AuthenState extends State<Authen> {
   bool statusRedEye = true;
   final formKey = GlobalKey<FormState>();
+  TextEditingController userController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +77,13 @@ class _AuthenState extends State<Authen> {
             style: Static_val().myButtonStyle(),
             onPressed: () {
               if (formKey.currentState!.validate()){
+                String user = userController.text;
+                String password = passwordController.text;
+                print(' ===  user = $user, password = $password');
+                checkAuthen(user:user, password: password);
+
+      
+
                 
               }
             },
@@ -87,7 +101,7 @@ class _AuthenState extends State<Authen> {
         Container(
           margin: EdgeInsets.only(top: 16),
           width: size * 0.6,
-          child: TextFormField(
+          child: TextFormField(controller: userController,
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please Fill User in Blank';
@@ -122,7 +136,7 @@ class _AuthenState extends State<Authen> {
         Container(
           margin: EdgeInsets.only(top: 16),
           width: size * 0.6,
-          child: TextFormField(
+          child: TextFormField(controller: passwordController,
             validator: (value) {
               if (value!.isEmpty) {
               return 'Pleass Fill Passwird  ';
@@ -181,6 +195,32 @@ class _AuthenState extends State<Authen> {
           child: ShowImage(path: Static_val.image4),
         ),
       ],
+    );
+  }
+  
+  Future<void> checkAuthen({required String user, required String password}) async { 
+      String path ="https://www.57ans.com/ansonline/api/getUserWhereUser.php?isAdd=true&user=$user";
+      await Dio().get(path).then((value) {
+      print('## value ==>> $value');
+      print(value.toString());
+      if (value.toString().isEmpty) {
+        MyDialog().normalDialog(context,'User False' ,' No $user');
+      } else {
+        for(var item in json.decode(value.data)) {
+          UserModel model = UserModel.fromMap(item);
+          if (password == model.password) {
+            // Success Auth
+            String type = model.type;
+            print( '#######  Authen  Success Type ==> $type');
+          } else {
+            MyDialog().normalDialog(context, 'Password False !!!','Password False Please Try Again');
+
+          }
+        
+          }
+
+        }
+      }
     );
   }
 }
